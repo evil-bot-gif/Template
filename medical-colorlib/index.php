@@ -1,5 +1,34 @@
+<?php
+// $text='';
+// $text=$_POST['message'];
+// $connect= mysqli_connect("localhost","root","","tbl_images");
+// if(!$connect){
+// 	echo 'Connection error: ' . mysqli_connect_error();
+// }
+// if(isset($_REQUEST['insert']))
+// {	
+// 	$message = $_REQUEST["message"];
+// 	// $file= addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+// 	$query = "INSERT INTO text(message) VALUES ('$message')";
+// 	if(mysqli_query($connect,$query)){
+// 		echo '<script>alert("Image Inserted into Database")</script>';
+// 	}
+// }
+$connect = mysqli_connect("localhost", "root", "", "testing");  
+ if(isset($_POST["insert"]))  
+ {  
+	  $text='';
+	  $text=$_POST['message'];
+      $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));  
+      $query = "INSERT INTO tbl_images(name,text) VALUES ('$file','$text')";  
+      if(mysqli_query($connect, $query))  
+      {  
+           echo '<script>alert("Image Inserted into Database")</script>';  
+      }  
+ }  
+?>
 	<!DOCTYPE html>
-	<html lang="zxx" class="no-js">
+	<html lang="en" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,26 +56,40 @@
 			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			<link rel="stylesheet" href="css/bootstrap.css">
 			<link rel="stylesheet" href="css/main.css">
-                         
+			<link rel="stylesheet" href="css/mycss.css">        
+			    
 	</head>
 		<body>
-
+		
+		
 			<!-- Start Header Area -->
-			<header class="default-header">
-				<div class="container">
+			<header class="default-header pt-0 pb-0" style="position: fixed;" >
+				<div class="container" >
 					<div class="header-wrap">
 						<div class="header-top d-flex justify-content-between align-items-center">
 							<div class="logo">
 								<a href="#home"><img src="img/logo2.png" alt=""></a>
+								
 							</div>
-							<div class="main-menubar d-flex align-items-center">
-								<nav class="hide">
-									<a href="#home">Home</a>
+							<!-- <ul class="menu">
+      						<a href="#">Home</a>
+      						<a href="#">About</a>
+      						<a href="#">Services</a>
+      						<a href="#">Works</a>
+      						<a href="#">Contact</a>
+      						<label for="chk" class="hide-menu-btn">
+        					<i class="fas fa-times"></i>
+      						</label>
+    							</ul> -->
+							 <div class="main-menubar d-flex align-items-center" > 
+								<nav> 
+									 <a href="#home">Home</a>
 									<a href="#login">Login</a>
 									<a href="#appoinment">Appoinment</a>
-									<a href="#consultant">Consultants</a>
+									<a href="#consultant">Consultants</a> 
 								</nav>
-								<div class="menu-bar"><span class="lnr lnr-menu"></span></div>
+								 <div class="menu-bar"><span class="lnr lnr-menu"></span></div> 
+								 <!-- <span class="lnr lnr-menu"></span> -->
 							</div>
 						</div>
 					</div>
@@ -63,13 +106,13 @@
 									We are the team <br>
 									help you being active
 								</h1>
-                                                            <iframe width="420" height="315"
-src="https://www.youtube.com/embed/X6jIrXkcZ8Y?autoplay=1">
-</iframe>
-														<button class="primary-btn2 mt-20 text-uppercase ">Get Started<span class="lnr lnr-arrow-right"></span></button>
+                                    <iframe width="420" height="315"
+									src="https://www.youtube.com/embed/X6jIrXkcZ8Y?autoplay=1">
+									</iframe>
+									<button class="primary-btn2 mt-20 text-uppercase ">Get Started<span class="lnr lnr-arrow-right"></span></button>
 							</div>
 							<div class="col-lg-6 d-flex align-self-end img-right">
-								<img class="img-fluid" src="img/header-img.jpg" alt="">
+								<img class="img-fluid mt-20" src="img/head.jpg" alt="">
 							</div>
 						</div>
 				</div>
@@ -77,19 +120,8 @@ src="https://www.youtube.com/embed/X6jIrXkcZ8Y?autoplay=1">
 			<!-- End banner Area -->
 
 			<!-- Start feature Area -->
-			<section class="feature-area section-gap" id="login">
-                            <center>
-                            <form method="post" id="register">
-                                <h5>Username:</h5>
-                                <input type="text" name="username" id="username">
-                                <br>
-                                <h5>Password:</h5>
-                                <input type="password" name="password" id="password">
-                                <br>
-                                <input type="button" value="Login">
-                            </form>
-                            </center>
-			</section>
+			
+					
 			<!-- End feature Area -->
 
 
@@ -101,116 +133,98 @@ src="https://www.youtube.com/embed/X6jIrXkcZ8Y?autoplay=1">
 							<img class="img-fluid" src="img/about-img.jpg" alt="">
 						</div>
 						<div class="col-lg-6 col-md-12 about-right no-padding">
-							<h1>Book an <br> Appoinment</h1>
-							<form class="booking-form" id="myForm" action="donate.php">
+							<h1>Share with Us</h1>
+							<!-- Start Form section -->
+							<form class="booking-form" method="post" id="myForm" enctype="multipart/form-data">
 								 	<div class="row">
-								 		<div class="col-lg-12 d-flex flex-column">
-							 				<input name="name" placeholder="Patient name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Patient name'" class="form-control mt-20" required="" type="text" required>
-								 		</div>
-							 			<div class="col-lg-6 d-flex flex-column">
-											<input name="phone" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'" class="form-control mt-20" required="" type="text" required>
-										</div>
-										<div class="col-lg-6 d-flex flex-column">
-											<input id="datepicker2" name="app-date" class="single-in mt-20"  onblur="this.placeholder = 'Appoinment date'" type="text" placeholder="Appoinment date" required>
+										<div class="col-lg-6 col-md-12 about-right no-padding">
+											<img class="img-fluid" id="imageholder" name="imageholder" src="img/placeholder.png" alt="your image" />
 										</div>
 										<div class="col-lg-12 flex-column">
 											<textarea class="form-control mt-20" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
 										</div>
-
+										<div class="col-lg-12 d-flex flex-column">
+											<input class="mt-20" onchange="readURL(this);" type='file' id="image" name="image"/>
+											<!-- onchange="readURL(this);" -->
+										</div>
 										<div class="col-lg-12 d-flex justify-content-end send-btn">
-											<button class="submit-btn primary-btn mt-20 text-uppercase ">confirm booking<span class="lnr lnr-arrow-right"></span></button>
+											<button id='insert' onclick="submit()" name='insert' value="insert" class="submit-btn primary-btn mt-20 text-uppercase ">Upload<span class="lnr lnr-arrow-right"></span></button> 
+											<!-- <input type="submit" name="insert" id="insert" value="Insert" class="submit-btn primary-btn mt-20 text-uppercase" /> -->
 										</div>
 
 										<div class="alert-msg"></div>
 									</div>
-					  		</form>
+							  </form>
+							  <!-- End form Section -->
+							  <!-- Form script -->
+							  <script>
+								  $(document).ready(function(){
+									$('#insert').click(function(){
+										var image_name=$('#image').val();
+										if(image_name = '')
+										{
+											alert('Please Select Image');
+											return false;
+										}
+										else
+										{
+											var extension = $('#image').val().split('.').pop().toLowerCase;
+											if(jQuery.inArray(extension,['gif','png','jpg','jpeg']) == -1 )
+											{
+												alert('Invalid Image File');
+												$('#image').val('');
+												return false;
+											}
+										}
+									});
+								  });
+								  function readURL(input) {
+            						if (input.files && input.files[0]) {
+                					var reader = new FileReader();
+
+                					reader.onload = function (e) {
+                    				$('#imageholder')
+                        			.attr('src', e.target.result);
+                							};
+
+                					reader.readAsDataURL(input.files[0]);
+            						}
+      								}
+							  </script>
+							  <!-- End form script -->
 							</div>
 						</div>
 					</div>
+					
+							<table class="table table-bordered">
+								<col width="50%">
+								<col width="50%">
+									<tr><th colspan="2">Share Forum</th></tr>
+									
+					<?php
+						$db= mysqli_connect("localhost","root","","testing");
+						$sql="SELECT * FROM tbl_images";
+						$result = mysqli_query($db,$sql);
+						while($row= mysqli_fetch_array($result)){
+							echo '  
+							
+							<tr>
+									<td> <img  class="mt-5 mb-5" src="data:image/jpeg;base64,'.base64_encode($row['name'] ).'" height="300" width="300" " /> </td>
+									<td>'.$row['text'].'</td>
+							</tr>
+                              
+                     ';  
+							
+						}
+						?>
+					</table>
+
 				</div>
 			</section>
 			<!-- End about Area -->
 
 			<!-- Start consultans Area -->
-			<section class="consultans-area section-gap" id="consultant">
-				<div class="container">
-					<div class="row d-flex justify-content-center">
-						<div class="col-md-8 pb-80 header-text">
-							<h1>Our Consultants</h1>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> labore  et dolore magna aliqua.
-							</p>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-3 col-md-3 vol-wrap">
-							<div class="single-con">
-								<div class="content">
-								    <a href="#" target="_blank">
-								      <div class="content-overlay"></div>
-								  		 <img class="content-image img-fluid d-block mx-auto" src="img/c1.jpg" alt="">
-								      	<div class="content-details fadeIn-bottom">
-								      		<h4>Andy Florence</h4>
-								      		<p>
-								      			inappropriate behavior
-								      		</p>
-								      	</div>
-								    </a>
-								 </div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 vol-wrap">
-							<div class="single-con">
-								<div class="content">
-								    <a href="#" target="_blank">
-								      <div class="content-overlay"></div>
-								  		 <img class="content-image img-fluid d-block mx-auto" src="img/c2.jpg" alt="">
-								      	<div class="content-details fadeIn-bottom">
-								      		<h4>Andy Florence</h4>
-								      		<p>
-								      			inappropriate behavior
-								      		</p>
-								      	</div>
-								    </a>
-								 </div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 vol-wrap">
-							<div class="single-con">
-								<div class="content">
-								    <a href="#" target="_blank">
-								      <div class="content-overlay"></div>
-								  		 <img class="content-image img-fluid d-block mx-auto" src="img/c3.jpg" alt="">
-								      	<div class="content-details fadeIn-bottom">
-								      		<h4>Andy Florence</h4>
-								      		<p>
-								      			inappropriate behavior
-								      		</p>
-								      	</div>
-								    </a>
-								 </div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 vol-wrap">
-							<div class="single-con">
-								<div class="content">
-								    <a href="#" target="_blank">
-								      <div class="content-overlay"></div>
-								  		 <img class="content-image img-fluid d-block mx-auto" src="img/c4.jpg" alt="">
-								      	<div class="content-details fadeIn-bottom">
-								      		<h4>Andy Florence</h4>
-								      		<p>
-								      			inappropriate behavior
-								      		</p>
-								      	</div>
-								    </a>
-								 </div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</section>
+			
 			<!-- End consultans Area -->
 
 			<!-- Start fact Area -->
@@ -371,10 +385,12 @@ src="https://www.youtube.com/embed/X6jIrXkcZ8Y?autoplay=1">
 			<script src="js/jquery.nice-select.min.js"></script>
 			<script src="js/jquery.sticky.js"></script>
 			<script src="js/parallax.min.js"></script>
-			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 			<script src="js/jquery.magnific-popup.min.js"></script>
 			<script src="js/waypoints.min.js"></script>
 			<script src="js/jquery.counterup.min.js"></script>
 			<script src="js/main.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		</body>
 	</html>
